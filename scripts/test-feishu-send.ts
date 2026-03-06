@@ -9,16 +9,15 @@
 
 import { readFileSync } from "fs";
 import { resolve } from "path";
-import { parse as parseYaml } from "yaml";
 import type { OpenClawConfig } from "../src/config/types.js";
 
-// 模拟加载配置
+// 模拟加载配置 (macOS 使用 ~/.openclaw/openclaw.json)
 function loadConfig(): OpenClawConfig {
-  const configPath = resolve(process.env.HOME || "~", ".openclaw/config.yaml");
+  const configPath = resolve(process.env.HOME || "~", ".openclaw/openclaw.json");
   console.log(`[DEBUG] Loading config from: ${configPath}`);
   
   const content = readFileSync(configPath, "utf-8");
-  const config = parseYaml(content) as OpenClawConfig;
+  const config = JSON.parse(content) as OpenClawConfig;
   
   console.log(`[DEBUG] Config loaded, agents: ${config.agents?.list?.length || 0}`);
   return config;
@@ -165,7 +164,7 @@ async function main() {
     
     // 示例：发送一条测试消息
     // 注意：请将下面的 chat_id 替换为实际的飞书群聊 ID
-    const testChatId = "oc_xxxxxxxxxxxxxxxx"; // 替换为实际的群聊 ID
+    const testChatId = "oc_xxxxxxxxxxxxxxxx"; // 替换为实际的聊天 ID (群聊: oc_xxx, 私聊: ou_xxx)
     
     // 在这里设置断点，逐步调试发送流程
     const result = await sendMessage(
