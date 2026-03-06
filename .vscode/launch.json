@@ -6,10 +6,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "node",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "./dist/gateway.js"
-      ],
+      "runtimeArgs": ["--inspect-brk", "openclaw.mjs", "gateway", "start"],
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "openclaw:*"
@@ -19,11 +16,24 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
+      "name": "Debug OpenClaw CLI",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--inspect-brk", "openclaw.mjs"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
       "name": "Debug Feishu Send Test",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "tsx",
-      "args": ["${workspaceFolder}/scripts/test-feishu-send.ts"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["tsx", "scripts/test-feishu-send.ts"],
       "env": {
         "NODE_ENV": "development"
       },
